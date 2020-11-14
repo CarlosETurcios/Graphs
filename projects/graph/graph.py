@@ -18,9 +18,12 @@ class Graph:
         self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
-        if v1 in self.vertices and v2 in self.vertices:
 
+        if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
+        else:
+            raise IndexError(
+                "All your vertices are mine, or rather, do not exist.")
 
     def get_neighbors(self, vertex_id):
         """
@@ -64,11 +67,11 @@ class Graph:
         stack = Stack()
         # make a set to track which nodes we have visited
         visited = set()
-        # enqueue the starting node
+        # push the starting node
         stack.push(starting_vertex)
-        # dequeue, while the queue isnt empty
+        # pop, while the stack isnt empty
         while stack.size() > 0:
-            # dequeue, this is our current node
+            # pop, this is our current node
             current_node = stack.pop()
             # check if we visited
             if current_node not in visited:
@@ -113,6 +116,9 @@ class Graph:
         queue = Queue()
         # make a set to track which nodes we have visited
         visited = set()
+
+        queue.enqueue([starting_vertex])
+
         # loop while the queue isn't empty
         while queue.size() > 0:
             current_path = queue.dequeue()
@@ -139,17 +145,73 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+        # make a stack
+        stack = Stack()
+        # make visited
+        visited = set()
+        # push the starting node
+        stack.push([starting_vertex])
+        # loop while stack isnt empty:
+        while stack.size() > 0:
+            # pop the top of the stack
+            # current should be path
+            path = stack.pop()
+
+            # must return the top node
+            vertex = path[-1]
+
+            # check to see if youfound the destinaion
+
+            if vertex == destination_vertex:
+                return path
+                # check to see if not in visited list
+            if vertex not in visited:
+                visited.add(vertex)
+
+                neighbors = self.get_neighbors(vertex)
+                for neighbor in neighbors:
+                    path_copy = path[:]
+                    path_copy.append(neighbor)
+                    stack.push(path_copy)
+
+    def dfs_recursive(self, starting_vertex, destination_vertex, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
 
         This should be done using recursion.
-        """
-        pass  # TODO
+         """
+
+        # check to see if path not None
+        if not path:
+            # starting of the path is starting vertex == same as adding the starting node to the stack or queue
+            path = [starting_vertex]
+        # set a variable to -1, last one in the path .
+        vertex = path[-1]
+
+        # we are checking to see if the path is the destination
+        if vertex == destination_vertex:
+            # you find it return path
+            return path
+
+        neighbors = self.get_neighbors(vertex)
+
+        for neighbor in neighbors:
+            # checking to make sure your not makeing duplicate searches
+            if neighbor not in path:
+                # create a copy of the path
+                path_copy = path[:]
+                # append the neigbors
+                path_copy.append(neighbor)
+                # recursive call take three argurments
+                # recursive call only works if used with a variable
+                recursive = self.dfs_recursive(
+                    starting_vertex, destination_vertex, path_copy)
+                # returns the recursive call
+                if recursive:
+                    return recursive
 
 
 if __name__ == '__main__':
