@@ -183,7 +183,9 @@ class Graph:
 
         This should be done using recursion.
          """
-
+        # dfs is good for getting the longest path
+        # if the node your looking for is all the way at the end or a leafe of a tree
+        # can be implemeted recursivly or randomly
         # check to see if path not None
         if not path:
             # starting of the path is starting vertex == same as adding the starting node to the stack or queue
