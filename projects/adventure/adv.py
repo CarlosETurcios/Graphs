@@ -136,35 +136,6 @@ def shortPath(player, world):
      
         
 
-    #             next_room = random_move
-
-    # def shortPath(self, player, world, target='?'):
-    #     q = Queue()
-    #     visited = set()
-    #     q.enqueue([player.current_room])
-
-    #     while len(visited) < len(world.rooms):
-    #         current_path = q.dequeue()
-    #         current_node = current_path[-1]
-
-    #         current_room_in = player.current_room
-
-    #         if target not in current_node and current_node not in visited:
-    #             # path = []
-    #             # path.append(current_node)
-    #             visited.add(current_room_in)
-
-    #             # if target not in current node add tho visited and move on to the next room
-
-    #             random_move = random.randint(0, len(current_node) - 1)
-    #             next_room = random_move
-
-#'e', 'n', 'e', 'e', 'e', 'e', 's', 'n', 'w', 'w', 'w', 'n',
-    #             player.travel(current_node[next_room])
-    #             traversal_path.append(current_node[next_room])
-    # check to see if vertex has exits
-    # needs to go down new path
-    # TRAVERSAL TESt
 shortPath(player, world)
 while len(traversal_path) > 2000:
     shortPath(player, world)
